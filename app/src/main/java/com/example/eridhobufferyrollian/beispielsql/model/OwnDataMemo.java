@@ -5,7 +5,7 @@ package com.example.eridhobufferyrollian.beispielsql.model;
  */
 
 public class OwnDataMemo {
-    DateiMemo dateiMemo;
+
 
     public long uid;
     public boolean checked;

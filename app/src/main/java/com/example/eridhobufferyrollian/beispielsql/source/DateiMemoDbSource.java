@@ -11,8 +11,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.example.eridhobufferyrollian.beispielsql.DateiMemoDbHelper;
-import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
 import com.example.eridhobufferyrollian.beispielsql.DatabaseManager;
+import com.example.eridhobufferyrollian.beispielsql.model.Node;
 
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class DateiMemoDbSource {
     private SQLiteDatabase database;
     private DateiMemoDbHelper dbHelper;
     private PeerDbSource peerDbSource;
-    private DateiMemo dateiMemo;
+    private Node node;
 
     //neue Array String für Datei
     private String[] columns = {
@@ -131,22 +131,22 @@ public class DateiMemoDbSource {
     *
     *
     * */
-    public int createDateiMemo(DateiMemo dateiMemo) {
+    public int createDateiMemo(Node node) {
         database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_UID, dateiMemo.getUid());
-        values.put(DateiMemoDbHelper.COLUMN_CHECKED, dateiMemo.isChecked());
-        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX, dateiMemo.getCornerTopLeftX());
-        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY, dateiMemo.getCornerTopLeftY());
-        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX, dateiMemo.getCornerTopRightX());
-        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY, dateiMemo.getCornerTopRightY());
-        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX, dateiMemo.getCornerBottomLeftX());
-        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY, dateiMemo.getCornerBottomLeftY());
-        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX, dateiMemo.getCornerBottomRightX());
-        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX, dateiMemo.getCornerBottomRightY());
-        values.put(DateiMemoDbHelper.COLUMN_PUNKTX, dateiMemo.getPunktX());
-        values.put(DateiMemoDbHelper.COLUMN_PUNKTY, dateiMemo.getPunktY());
-        values.put(DateiMemoDbHelper.COLUMN_IP, dateiMemo.getIP());
+        values.put(DateiMemoDbHelper.COLUMN_UID, node.getUid());
+        values.put(DateiMemoDbHelper.COLUMN_CHECKED, node.isChecked());
+        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX, node.getCornerTopLeftX());
+        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY, node.getCornerTopLeftY());
+        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX, node.getCornerTopRightX());
+        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY, node.getCornerTopRightY());
+        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX, node.getCornerBottomLeftX());
+        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY, node.getCornerBottomLeftY());
+        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX, node.getCornerBottomRightX());
+        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX, node.getCornerBottomRightY());
+        values.put(DateiMemoDbHelper.COLUMN_PUNKTX, node.getPunktX());
+        values.put(DateiMemoDbHelper.COLUMN_PUNKTY, node.getPunktY());
+        values.put(DateiMemoDbHelper.COLUMN_IP, node.getIP());
         values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, peerDbSource.getPeersCount());
 
         //
@@ -182,7 +182,7 @@ public class DateiMemoDbSource {
     *
     *
     * */
-    public void deleteDateiMemo() {
+    public void deleteNode() {
 
         database = DatabaseManager.getInstance().openDatabase();
         database.delete(DateiMemoDbHelper.TABLE_DATEI_LIST, null, null);
@@ -423,7 +423,7 @@ public class DateiMemoDbSource {
     *               Hilfklasse für Update Methode und Insert Methode
     *
     * */
-    private DateiMemo cursorToDateiMemo(Cursor cursor) {
+    private Node cursorToNode(Cursor cursor) {
         int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
         int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
         int idTopRightX = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX);
@@ -461,12 +461,12 @@ public class DateiMemoDbSource {
         int countPeers = cursor.getInt(idCountPeers);
 
 
-        DateiMemo dateiMemo = new DateiMemo(uid, isChecked,
+        Node node = new Node(uid, isChecked,
                 cornerTopRightX, cornerTopRightY, cornerTopLeftX, cornerTopLeftY,
                 cornerBottomRightX, cornerBottomRightY, cornerBottomLeftX, cornerBottomLeftY,
                 punktX, punktY, IP, countPeers);
 
-        return dateiMemo;
+        return node;
     }
 
 
@@ -814,25 +814,25 @@ public class DateiMemoDbSource {
     // ================================================================================================================================
     //
 
-        public List<DateiMemo> getAllDateiMemos() {
-        List<DateiMemo> DateiMemoList = new ArrayList<>();
+        public List<Node> getAllNodes() {
+        List<Node> nodeList = new ArrayList<>();
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
                 columns, null, null, null, null, null);
 
         cursor.moveToFirst();
-        DateiMemo dateiMemo;
+        Node node;
 
         while(!cursor.isAfterLast()) {
-            dateiMemo = cursorToDateiMemo(cursor);
-            DateiMemoList.add(dateiMemo);
-            Log.d(LOG_TAG, "ID: " + dateiMemo.getUid() + ", Inhalt: " + dateiMemo.toString());
+            node = cursorToNode(cursor);
+            nodeList.add(node);
+            Log.d(LOG_TAG, "ID: " + node.getUid() + ", Inhalt: " + node.toString());
             cursor.moveToNext();
         }
 
         cursor.close();
 
-        return DateiMemoList;
+        return nodeList;
     }
 
 }

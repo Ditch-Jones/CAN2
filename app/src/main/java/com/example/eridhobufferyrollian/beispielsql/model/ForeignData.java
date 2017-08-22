@@ -6,7 +6,6 @@ package com.example.eridhobufferyrollian.beispielsql.model;
  */
 
 public class ForeignData {
-    DateiMemo dateiMemo;
 
     private long uid;
     private boolean checked;

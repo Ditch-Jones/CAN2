@@ -38,9 +38,9 @@ import android.widget.TextView;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
+import com.example.eridhobufferyrollian.beispielsql.model.Node;
 import com.example.eridhobufferyrollian.beispielsql.model.ForeignData;
-import com.example.eridhobufferyrollian.beispielsql.model.NeighborMemo;
+import com.example.eridhobufferyrollian.beispielsql.model.Neighbour;
 import com.example.eridhobufferyrollian.beispielsql.model.OwnDataMemo;
 import com.example.eridhobufferyrollian.beispielsql.model.PeerMemo;
 import com.example.eridhobufferyrollian.beispielsql.source.DateiMemoDbSource;
@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private OwnDataDbSource ownDataDbSource;
     private PeerDbSource peerDbSource;
 
-    private DateiMemo dateiMemo;
+    private Node dateiMemo;
     private ForeignData foreignData;
-    private NeighborMemo neighborMemo;
+    private Neighbour neighbour;
     private OwnDataMemo ownDataMemo;
     private PeerMemo peerMemo;
 
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ownDataDbSource = new OwnDataDbSource();
         peerDbSource = new PeerDbSource();
 
-        dateiMemoDbSource.deleteDateiMemo();
+        dateiMemoDbSource.deleteNode();
         foreignDataDbSource.deleteForeignData();
         neighborDbSource.deleteNeighbormemo();
         ownDataDbSource.deleteOwnData();
@@ -201,21 +201,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //private double RTT;
         //private boolean checked;
         //private long uid;
-        neighborMemo.setUid(1);
-        neighborMemo.setChecked(true);
-        neighborMemo.setCornerTopRightX(0.5);
-        neighborMemo.setCornerTopRightY(0.6);
-        neighborMemo.setCornerTopLeftX(0.2);
-        neighborMemo.setCornerTopLeftY(0.2);
-        neighborMemo.setCornerBottomLeftX(0.4);
-        neighborMemo.setCornerBottomLeftY(0.6);
-        neighborMemo.setCornerBottomRightX(0.5);
-        neighborMemo.setCornerBottomRightY(1);
-        neighborMemo.setPunktX(0.2);
-        neighborMemo.setPunktY(0.4);
-        neighborMemo.setUIP("277.0.0.0/8");
-        neighborMemo.setRTT(25.89);
-        neighborDbSource.createNeighborMemo(neighborMemo);
+        neighbour.setUid(1);
+        neighbour.setChecked(true);
+        neighbour.setCornerTopRightX(0.5);
+        neighbour.setCornerTopRightY(0.6);
+        neighbour.setCornerTopLeftX(0.2);
+        neighbour.setCornerTopLeftY(0.2);
+        neighbour.setCornerBottomLeftX(0.4);
+        neighbour.setCornerBottomLeftY(0.6);
+        neighbour.setCornerBottomRightX(0.5);
+        neighbour.setCornerBottomRightY(1);
+        neighbour.setPunktX(0.2);
+        neighbour.setPunktY(0.4);
+        neighbour.setUIP("277.0.0.0/8");
+        neighbour.setRTT(25.89);
+        neighborDbSource.createNeighborMemo(neighbour);
 
         //insert Own Data
         //    public long uid;
@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //Zeig Table Datei Memo
     private void ListDatei () {
-        List<DateiMemo> dateiMemoList= dateiMemoDbSource.getAllDateiMemos();
+        List<Node> dateiMemoList= dateiMemoDbSource.getAllNodes();
         Log.d(LOG_TAG,"=============================================================");
 
         for (int j = 0; j < dateiMemoList.size(); j++){
@@ -287,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void ListNeighborData() {
-        List<NeighborMemo> neighborMemoList= neighborDbSource.getAllNeighborMemo();
+        List<Neighbour> neighborMemoList= neighborDbSource.getAllNeighborMemo();
         Log.d(LOG_TAG,"=============================================================");
 
         for (int i= 0; i < neighborMemoList.size(); i++) {
@@ -621,9 +621,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void showAllListEntries () {
-        List<DateiMemo> DateiMemoList = dateiMemoDbSource.getAllDateiMemos();
+        List<Node> DateiMemoList = dateiMemoDbSource.getAllNodes();
 
-        ArrayAdapter<DateiMemo> adapter = (ArrayAdapter<DateiMemo>) mDateiMemosListView.getAdapter();
+        ArrayAdapter<Node> adapter = (ArrayAdapter<Node>) mDateiMemosListView.getAdapter();
 
         adapter.clear();
         adapter.addAll(DateiMemoList);

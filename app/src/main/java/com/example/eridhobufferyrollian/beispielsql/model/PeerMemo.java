@@ -2,7 +2,6 @@ package com.example.eridhobufferyrollian.beispielsql.model;
 
 
 public class PeerMemo {
-    DateiMemo dateiMemo;
 
     private long uid;
     private int peerId;
@@ -50,7 +49,7 @@ public class PeerMemo {
         this.peerIp = peerIp;
     }
 
-
+    //wofür?
     public int getLength(int zahl){
         String s = String.valueOf(zahl);
         return s.length();
@@ -66,6 +65,8 @@ public class PeerMemo {
         return i;
     }
 
+
+    //nein
     public void decreasePeers(){
         peerId = peerId-1;
     }

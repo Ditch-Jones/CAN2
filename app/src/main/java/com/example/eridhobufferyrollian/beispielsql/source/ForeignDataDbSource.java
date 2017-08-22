@@ -14,7 +14,7 @@ import android.database.Cursor;
 
 import com.example.eridhobufferyrollian.beispielsql.DatabaseManager;
 import com.example.eridhobufferyrollian.beispielsql.DateiMemoDbHelper;
-import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
+import com.example.eridhobufferyrollian.beispielsql.model.Node;
 import com.example.eridhobufferyrollian.beispielsql.model.ForeignData;
 
 import java.util.ArrayList;

@@ -1,16 +1,10 @@
 package com.example.eridhobufferyrollian.beispielsql.model;
 
-/**
- * Created by en on 15.06.17.
- * Class haupt daten
- */
 
-public class DateiMemo {
-    PeerMemo peerMemo;
+public class Neighbour {
 
-//    private String username;
-//    private String password;
-    private long uid;
+
+
     private double cornerTopRightX;
     private double cornerTopRightY;
     private double cornerTopLeftX;
@@ -21,16 +15,15 @@ public class DateiMemo {
     private double cornerBottomLeftY;
     private double punktX;
     private double punktY;
-    private String IP;
-    private int countPeers;
+    private String UIP;
+    private double RTT;
     private boolean checked;
+    private long uid;
 
-    public DateiMemo(long uid, boolean checked,
-                     double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
-                     double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY,
-                     double punktX, double punktY, String IP, int countPeers) {
-//        this.username = username;
-//        this.password = password;
+    public Neighbour(long uid, boolean checked,
+                        double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
+                        double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY,
+                        double punktX, double punktY, String UIP, double RTT) {
         this.uid = uid;
         this.checked = checked;
         this.cornerTopRightX = cornerTopRightX;
@@ -43,35 +36,41 @@ public class DateiMemo {
         this.cornerBottomLeftY = cornerBottomLeftY;
         this.punktX = punktX;
         this.punktY = punktY;
-        this.IP = IP;
-        this.countPeers = countPeers;
+        this.UIP = UIP;
+        this.RTT = RTT;
     }
 
-//    public String getUsername() {
-//        return username;
+//    public double getCornerTopRight() {
+//        return cornerTopRight;
 //    }
 //
-//    public void setUsername(String username) {
-//        this.username = username;
+//    public void setCornerTopRight(double cornerTopRight) {
+//        this.cornerTopRight = cornerTopRight;
 //    }
 //
-//
-//    public String getPassword() {
-//        return password;
+//    public double getCornerTopLeft() {
+//        return cornerTopLeft;
 //    }
 //
-//    public void setPassword(String password) {
-//        this.password = password;
+//    public void setCornerTopLeft(double cornerTopLeft) {
+//        this.cornerTopLeft = cornerTopLeft;
 //    }
-
-
-    public long getUid() {
-        return uid;
-    }
-
-    public void setUid(long uid) {
-        this.uid = uid;
-    }
+//
+//    public double getCornerBottomRight() {
+//        return cornerBottomRight;
+//    }
+//
+//    public void setCornerBottomRight(double cornerBottomRight) {
+//        this.cornerBottomRight = cornerBottomRight;
+//    }
+//
+//    public double getCornerBottomLeft() {
+//        return cornerBottomLeft;
+//    }
+//
+//    public void setCornerBottomLeft(double cornerBottomLeft) {
+//        this.cornerBottomLeft = cornerBottomLeft;
+//    }
 
     public double getCornerTopRightX() {
         return cornerTopRightX;
@@ -137,47 +136,6 @@ public class DateiMemo {
         this.cornerBottomLeftY = cornerBottomLeftY;
     }
 
-
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked (boolean checked) {
-        this.checked = checked;
-    }
-
-//    public double getCornerTopRight() {
-//        return cornerTopRight;
-//    }
-//
-//    public void setCornerTopRight(double cornerTopRight) {
-//        this.cornerTopRight = cornerTopRight;
-//    }
-//
-//    public double getCornerTopLeft() {
-//        return cornerTopLeft;
-//    }
-//
-//    public void setCornerTopLeft(double cornerTopLeft) {
-//        this.cornerTopLeft = cornerTopLeft;
-//    }
-//
-//    public double getCornerBottomRight() {
-//        return cornerBottomRight;
-//    }
-//
-//    public void setCornerBottomRight(double cornerBottomRight) {
-//        this.cornerBottomRight = cornerBottomRight;
-//    }
-//
-//    public double getCornerBottomLeft() {
-//        return cornerBottomLeft;
-//    }
-//
-//    public void setCornerBottomLeft(double cornerBottomLeft) {
-//        this.cornerBottomLeft = cornerBottomLeft;
-//    }
-
     public double getPunktX() {
         return punktX;
     }
@@ -194,30 +152,47 @@ public class DateiMemo {
         this.punktY = punktY;
     }
 
-    public String getIP() {
-        return IP;
+    public String getUIP() {
+        return UIP;
     }
 
-    public void setIP(String IP) {
-        this.IP = IP;
+    public void setUIP(String UIP) {
+        this.UIP = UIP;
     }
 
-    public int getCountPeers() {
-        return countPeers;
+    public double getRTT() {
+        return RTT;
     }
-    public void setCountPeers(int countPeers) {
-        this.countPeers = countPeers;
+
+    public void setRTT(double RTT) {
+        this.RTT = RTT;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    public long getUid() {
+        return uid;
+    }
+
+    public  void setUid(long uid) {
+        this.uid = uid;
     }
 
     @Override
     public String toString() {
-        String output = uid + " -- " + IP +
+        String output = uid + " -- " + UIP +
                 "\nCorner top Left : x -> "+ cornerTopLeftX + " -- y -> "+ cornerTopLeftY +
                 "\nCorner top Right : x -> "+ cornerTopRightX + " -- y -> "+ cornerTopRightY +
                 "\nCorner Bottom Left : x -> "+ cornerBottomLeftX + " -- y -> "+ cornerBottomLeftY +
                 "\nCorner Bottom Right : x -> "+ cornerBottomRightX + " -- y -> "+ cornerBottomRightY +
                 "\nCorner Punkt : x -> "+ punktX + " -- y -> "+ punktY +
-                "\nCorner CountPeers : "+ countPeers;
+                "\n RTT : "+ RTT;
         return output;
     }
 }
