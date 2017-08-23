@@ -10,18 +10,18 @@ public class PeerMemo {
 
 
 
-    public PeerMemo(long uid, int peerId, String peerIp, boolean checked) {
-        this.uid = uid;
-        this.peerId = peerId;
-        this.peerIp = peerIp;
-        this.checked = checked;
-    }
+//    public PeerMemo(long uid, int peerId, String peerIp, boolean checked) {
+//        this.uid = uid;
+//        this.peerId = peerId;
+//        this.peerIp = peerIp;
+//        this.checked = checked;
+//    }
 
     public long getUid() {
         return uid;
     }
     public void setUid(long uid) {
-       this.uid = uid;
+        this.uid = uid;
     }
 
     public int getPeerId() {
@@ -49,7 +49,7 @@ public class PeerMemo {
         this.peerIp = peerIp;
     }
 
-    //wofür?
+
     public int getLength(int zahl){
         String s = String.valueOf(zahl);
         return s.length();
@@ -65,8 +65,6 @@ public class PeerMemo {
         return i;
     }
 
-
-    //nein
     public void decreasePeers(){
         peerId = peerId-1;
     }

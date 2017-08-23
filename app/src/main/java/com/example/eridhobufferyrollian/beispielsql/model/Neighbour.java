@@ -4,7 +4,6 @@ package com.example.eridhobufferyrollian.beispielsql.model;
 public class Neighbour {
 
 
-
     private double cornerTopRightX;
     private double cornerTopRightY;
     private double cornerTopLeftX;
@@ -20,25 +19,25 @@ public class Neighbour {
     private boolean checked;
     private long uid;
 
-    public Neighbour(long uid, boolean checked,
-                        double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
-                        double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY,
-                        double punktX, double punktY, String UIP, double RTT) {
-        this.uid = uid;
-        this.checked = checked;
-        this.cornerTopRightX = cornerTopRightX;
-        this.cornerTopRightY = cornerTopRightY;
-        this.cornerTopLeftX = cornerTopLeftX;
-        this.cornerTopLeftY = cornerTopLeftY;
-        this.cornerBottomRightX = cornerBottomRightX;
-        this.cornerBottomRightY = cornerBottomRightY;
-        this.cornerBottomLeftX = cornerBottomLeftX;
-        this.cornerBottomLeftY = cornerBottomLeftY;
-        this.punktX = punktX;
-        this.punktY = punktY;
-        this.UIP = UIP;
-        this.RTT = RTT;
-    }
+//    public NeighborMemo(long uid, boolean checked,
+//                        double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
+//                        double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY,
+//                        double punktX, double punktY, String UIP, double RTT) {
+//        this.uid = uid;
+//        this.checked = checked;
+//        this.cornerTopRightX = cornerTopRightX;
+//        this.cornerTopRightY = cornerTopRightY;
+//        this.cornerTopLeftX = cornerTopLeftX;
+//        this.cornerTopLeftY = cornerTopLeftY;
+//        this.cornerBottomRightX = cornerBottomRightX;
+//        this.cornerBottomRightY = cornerBottomRightY;
+//        this.cornerBottomLeftX = cornerBottomLeftX;
+//        this.cornerBottomLeftY = cornerBottomLeftY;
+//        this.punktX = punktX;
+//        this.punktY = punktY;
+//        this.UIP = UIP;
+//        this.RTT = RTT;
+//    }
 
 //    public double getCornerTopRight() {
 //        return cornerTopRight;

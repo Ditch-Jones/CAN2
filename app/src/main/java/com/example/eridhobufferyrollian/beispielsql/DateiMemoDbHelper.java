@@ -37,7 +37,11 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
 
     public static final String COLUMN_UID = "_uid";
-//    public static final String COLUMN_USERNAME = "username";
+    public static final String COLUMN_PID = "peer_id";
+    public static final String COLUMN_OID = "own_id";
+    public static final String COLUMN_FID = "foreign_id";
+    public static final String COLUMN_NID = "neighbor_id";
+    //    public static final String COLUMN_USERNAME = "username";
 //    public static final String COLUMN_PASSWORD = "password";
     public static final String COLUMN_IP = "IP";
     public static final String COLUMN_COUNTPEERS = "CountPeers";
@@ -50,7 +54,7 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
 
     public static final String COLUMN_UIP = "uip";
-//    public static final String COLUMN_CORNERTOPRIGHT = "cornerTopRight";
+    //    public static final String COLUMN_CORNERTOPRIGHT = "cornerTopRight";
 //    public static final String COLUMN_CORNERTOPLEFT = "cornerTopLeft";
 //    public static final String COLUMN_CORNERBOTTOMRIGHT = "cornerBottomRight";
 //    public static final String COLUMN_CORNERBOTTOMLEFT = "cornerBottomLeft";
@@ -73,69 +77,64 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
     public static final String COLUMN_CORNERBOTTOMLEFTY = "cornerBottomLeftY";
 
 
-    public static final String COLUMN_CHECKED = "checked";
+    //public static final String COLUMN_CHECKED = "checked";
 
 
 
     public static final String SQL_CREATE_TABLE_DATEI =
             "CREATE TABLE " + TABLE_DATEI_LIST +
-                    "(" + COLUMN_UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0);" +
-                    COLUMN_CORNERTOPRIGHTX + " REAL NOT NULL, " +
-                    COLUMN_CORNERTOPRIGHTY + " REAL NOT NULL, " +
-                    COLUMN_CORNERTOPLEFTX + " REAL NOT NULL, " +
-                    COLUMN_CORNERTOPLEFTY + " REAL NOT NULL, " +
-                    COLUMN_CORNERBOTTOMRIGHTX + " REAL NOT NULL, " +
-                    COLUMN_CORNERBOTTOMRIGHTY + " REAL NOT NULL, " +
-                    COLUMN_CORNERBOTTOMLEFTX + " REAL NOT NULL, " +
-                    COLUMN_CORNERBOTTOMLEFTY + " REAL NOT NULL, " +
-                    COLUMN_PUNKTX + "REAL NOT NULL" +
-                    COLUMN_PUNKTY + "REAL NOT NULL" +
-                    COLUMN_IP + "TEXT NOT NULL" +
-                    COLUMN_COUNTPEERS + "INTEGER NOT NULL);" ;
+                    "(" + COLUMN_UID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    COLUMN_CORNERTOPRIGHTX + " REAL NOT NULL," +
+                    COLUMN_CORNERTOPRIGHTY + " REAL NOT NULL," +
+                    COLUMN_CORNERTOPLEFTX + " REAL NOT NULL," +
+                    COLUMN_CORNERTOPLEFTY + " REAL NOT NULL," +
+                    COLUMN_CORNERBOTTOMRIGHTX + " REAL NOT NULL," +
+                    COLUMN_CORNERBOTTOMRIGHTY + " REAL NOT NULL," +
+                    COLUMN_CORNERBOTTOMLEFTX + " REAL NOT NULL," +
+                    COLUMN_CORNERBOTTOMLEFTY + " REAL NOT NULL," +
+                    COLUMN_PUNKTX + " REAL NOT NULL," +
+                    COLUMN_PUNKTY + " REAL NOT NULL," +
+                    COLUMN_IP + " TEXT NOT NULL," +
+                    COLUMN_COUNTPEERS + " INTEGER NOT NULL )" ;
 
     public static final String SQL_CREATE_TABLE_PEERS =
             "CREATE TABLE " + TABLE_PEER_LIST +
-                    "(" + COLUMN_PEERIP + " TEXT PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_PEERID + " INTEGER NOT NULL, " +
-                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0), " +
-                    COLUMN_UID + " INTEGER NOT NULL, " + " FOREIGN KEY ("+ COLUMN_UID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));";
+                    "(" + COLUMN_PEERIP + " TEXT PRIMARY KEY AUTOINCREMENT," +
+                    COLUMN_PEERID + " INTEGER NOT NULL," +
+                    "FOREIGN KEY ("+ COLUMN_PID +") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "))";
 
     public static final String SQL_CREATE_TABLE_NEIGBHORS =
             "CREATE TABLE " + TABLE_NEIGHBOR_LIST +
-                    "(" + COLUMN_UIP + " STRING PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_CORNERTOPRIGHTX + " REAL NOT NULL, " +
-                    COLUMN_CORNERTOPRIGHTY + " REAL NOT NULL, " +
-                    COLUMN_CORNERTOPLEFTX + " REAL NOT NULL, " +
-                    COLUMN_CORNERTOPLEFTY + " REAL NOT NULL, " +
-                    COLUMN_CORNERBOTTOMRIGHTX + " REAL NOT NULL, " +
-                    COLUMN_CORNERBOTTOMRIGHTY + " REAL NOT NULL, " +
-                    COLUMN_CORNERBOTTOMLEFTX + " REAL NOT NULL, " +
-                    COLUMN_CORNERBOTTOMLEFTY + " REAL NOT NULL, " +
-                    COLUMN_PUNKTX + "REAL NOT NULL" +
-                    COLUMN_PUNKTY + "REAL NOT NULL" +
-                    COLUMN_RTT + " REAL NOT NULL, " +
-                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0), " +
-                    COLUMN_UID + " INTEGER NOT NULL, " + " FOREIGN KEY ("+ COLUMN_UID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));";
+                    "(" + COLUMN_UIP + " TEXT PRIMARY KEY AUTOINCREMENT," +
+                    COLUMN_CORNERTOPRIGHTX + " REAL NOT NULL," +
+                    COLUMN_CORNERTOPRIGHTY + " REAL NOT NULL," +
+                    COLUMN_CORNERTOPLEFTX + " REAL NOT NULL," +
+                    COLUMN_CORNERTOPLEFTY + " REAL NOT NULL," +
+                    COLUMN_CORNERBOTTOMRIGHTX + " REAL NOT NULL," +
+                    COLUMN_CORNERBOTTOMRIGHTY + " REAL NOT NULL," +
+                    COLUMN_CORNERBOTTOMLEFTX + " REAL NOT NULL," +
+                    COLUMN_CORNERBOTTOMLEFTY + " REAL NOT NULL," +
+                    COLUMN_PUNKTX + " REAL NOT NULL," +
+                    COLUMN_PUNKTY + " REAL NOT NULL," +
+                    COLUMN_RTT + " REAL NOT NULL," +
+                    "FOREIGN KEY ("+ COLUMN_NID +") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "))";
 
     public static final String SQL_CREATE_TABLE_OWNDATAS =
             "CREATE TABLE " + TABLE_OWNDATA_LIST +
-                    "(" + COLUMN_FILEID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0" +
-                    COLUMN_PUNKTX + "REAL NOT NULL" +
-                    COLUMN_PUNKTY + "REAL NOT NULL" +
-                    COLUMN_UID + " INTEGER NOT NULL, " + " FOREIGN KEY ("+ COLUMN_UID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));" ;
+                    "(" + COLUMN_FILEID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    COLUMN_PUNKTX + " REAL NOT NULL," +
+                    COLUMN_PUNKTY + " REAL NOT NULL," +
+                    "FOREIGN KEY ("+ COLUMN_OID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "))" ;
 
     public static final String SQL_CREATE_TABLE_FOREIGNDATAS =
             "CREATE TABLE " + TABLE_FOREIGNDATA_LIST +
-                    "(" + COLUMN_FOTOID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0" +
-                    COLUMN_IP + "TEXT NOT NULL" +
-                    COLUMN_UID + " INTEGER NOT NULL, " + " FOREIGN KEY ("+ COLUMN_UID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));" ;
+                    "(" + COLUMN_FOTOID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    COLUMN_IP + "TEXT NOT NULL," +
+                    "FOREIGN KEY ("+ COLUMN_FID +") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "))" ;
 
     public static final String SQL_DROP_DATEI = "DROP TABLE IF EXISTS " + TABLE_DATEI_LIST;
     public static final String SQL_DROP_PEERS = "DROP TABLE IF EXISTS " + TABLE_PEER_LIST;
-    public static final String SQL_DROP_NEIGHBORS = "DROP TABLE IF EXISTS" + TABLE_NEIGHBOR_LIST;
+    public static final String SQL_DROP_NEIGHBORS = "DROP TABLE IF EXISTS " + TABLE_NEIGHBOR_LIST;
     public static final String SQL_DROP_OWNDATAS = "DROP TABLE IF EXISTS " + TABLE_OWNDATA_LIST;
     public static final String SQL_DROP_FOREIGNDATAS = "DROP TABLE IF EXISTS " + TABLE_FOREIGNDATA_LIST;
 

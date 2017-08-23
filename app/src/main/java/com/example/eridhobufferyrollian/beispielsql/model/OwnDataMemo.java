@@ -6,18 +6,17 @@ package com.example.eridhobufferyrollian.beispielsql.model;
 
 public class OwnDataMemo {
 
-
     public long uid;
     public boolean checked;
     public int fileId;
 
 
 
-    public OwnDataMemo(long uid, boolean checked, int fileId){
-        this.uid = uid;
-        this.checked = checked;
-        this.fileId = fileId;
-    }
+//    public OwnDataMemo(long uid, boolean checked, int fileId){
+//        this.uid = uid;
+//        this.checked = checked;
+//        this.fileId = fileId;
+//    }
 
     public long getUid() {
         return uid;

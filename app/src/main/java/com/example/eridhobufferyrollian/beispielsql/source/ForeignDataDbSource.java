@@ -18,6 +18,7 @@ import com.example.eridhobufferyrollian.beispielsql.model.Node;
 import com.example.eridhobufferyrollian.beispielsql.model.ForeignData;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static android.R.attr.id;
@@ -36,11 +37,13 @@ public class ForeignDataDbSource {
             DateiMemoDbHelper.COLUMN_UID,
             DateiMemoDbHelper.COLUMN_PUNKTX,
             DateiMemoDbHelper.COLUMN_PUNKTY,
-            DateiMemoDbHelper.COLUMN_CHECKED,
+            //DateiMemoDbHelper.COLUMN_CHECKED,
             DateiMemoDbHelper.COLUMN_IP
     };
 
-    public ForeignDataDbSource(){}
+    public ForeignDataDbSource(){
+        foreignData = new ForeignData();
+    }
      /*
     *
     * For single table
@@ -137,8 +140,8 @@ public class ForeignDataDbSource {
     public int createForeignData(ForeignData foreignData) {
         database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_UID, dateiMemoDbSource.getUid());
-        values.put(DateiMemoDbHelper.COLUMN_CHECKED, foreignData.isChecked());
+        values.put(DateiMemoDbHelper.COLUMN_FID, foreignData.getUid());
+        //values.put(DateiMemoDbHelper.COLUMN_CHECKED, foreignData.isChecked());
         values.put(DateiMemoDbHelper.COLUMN_FOTOID, foreignData.getFotoId());
         values.put(DateiMemoDbHelper.COLUMN_PUNKTX, foreignData.getPunktX());
         values.put(DateiMemoDbHelper.COLUMN_PUNKTY, foreignData.getPunktY());
@@ -191,42 +194,42 @@ public class ForeignDataDbSource {
     *               Hilfklasse für Update Methode und Insert Methode
     *
     * */
-    private ForeignData cursorToForeignData(Cursor cursor) {
-        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
-        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
-        int idFotoId = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_FOTOID);
-        int idPunktX = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTX);
-        int idPunktY = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTY);
-        int idForeignIp = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_IP);
+//    private ForeignData cursorToForeignData(Cursor cursor) {
+//        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
+//        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+//        int idFotoId = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_FOTOID);
+//        int idPunktX = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTX);
+//        int idPunktY = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTY);
+//        int idForeignIp = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_IP);
+//
+//
+//
+//        long uid = cursor.getLong(idIndex);
+//
+//        int intValueChecked = cursor.getInt(idChecked);
+//        boolean isChecked = (intValueChecked != 0);
+//
+//        int fotoId = cursor.getInt(idFotoId);
+//        double punktX = cursor.getDouble(idPunktX);
+//        double punktY = cursor.getDouble(idPunktY);
+//        String foreignIp = cursor.getString(idForeignIp);
+//
+//
+//
+//        ForeignData foreignData = new ForeignData(uid, isChecked, fotoId, punktX, punktY, foreignIp);
+//
+//        return foreignData;
+//    }
 
-
-
-        long uid = cursor.getLong(idIndex);
-
-        int intValueChecked = cursor.getInt(idChecked);
-        boolean isChecked = (intValueChecked != 0);
-
-        int fotoId = cursor.getInt(idFotoId);
-        double punktX = cursor.getDouble(idPunktX);
-        double punktY = cursor.getDouble(idPunktY);
-        String foreignIp = cursor.getString(idForeignIp);
-
-
-
-        ForeignData foreignData = new ForeignData(uid, isChecked, fotoId, punktX, punktY, foreignIp);
-
-        return foreignData;
-    }
-
-     /*
-    *           Get
-    *
-    *
-    *           All Data
-    *
-    *
-    *
-    * */
+    /*
+   *           Get
+   *
+   *
+   *           All Data
+   *
+   *
+   *
+   * */
      /*
     *           Get
     *
@@ -235,22 +238,22 @@ public class ForeignDataDbSource {
     *
     *
     * */
-     public double getPunktXForeign(long uid) {
+    public double getPunktXForeign(long uid) {
 
-         String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_PUNKTX +" FROM " + DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST + " WHERE "
-                 + DateiMemoDbHelper.COLUMN_UID + " = " + uid;
+        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_PUNKTX +" FROM " + DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST + " WHERE "
+                + DateiMemoDbHelper.COLUMN_FID + " = " + uid;
 
-         Log.e(LOG_TAG, selectQuery);
+        Log.e(LOG_TAG, selectQuery);
 
-         Cursor c = database.rawQuery(selectQuery, null);
+        Cursor c = database.rawQuery(selectQuery, null);
 
-         if (c != null)
-             c.moveToFirst();
-         double punktX;
-         punktX = c.getDouble(c.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTX));
+        if (c != null)
+            c.moveToFirst();
+        double punktX;
+        punktX = c.getDouble(c.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTX));
 
-         return punktX;
-     }
+        return punktX;
+    }
     //
     // ================================================================================================================================
     //
@@ -352,22 +355,41 @@ public class ForeignDataDbSource {
     //
 
     public List<ForeignData> getAllForeignData() {
-        List<ForeignData> ForeignDataList = new ArrayList<>();
+        List<ForeignData> ForeignDataList = new LinkedList<ForeignData>();
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST,
-                columns_ForeignData, null, null, null, null, null);
+        //1. query
+        String query = "SELECT * FROM " + dbHelper.TABLE_FOREIGNDATA_LIST;
 
-        cursor.moveToFirst();
-        ForeignData foreignData;
+        //2. open Database
+        database = DatabaseManager.getInstance().openDatabase();
 
-        while(!cursor.isAfterLast()) {
-            foreignData = cursorToForeignData(cursor);
-            ForeignDataList.add(foreignData);
-            Log.d(LOG_TAG, "ID: " + foreignData.getUid() + ", Inhalt: " + foreignData.toString());
-            cursor.moveToNext();
+        Cursor cursor = database.rawQuery(query, null);
+
+//        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+//        int intValueChecked = cursor.getInt(idChecked);
+//        boolean isChecked = (intValueChecked != 0);
+
+
+        //3. Durchführen Zeile und füge in List hinzu
+        ForeignData foreignData = null;
+        if (cursor.moveToFirst()) {
+            do {
+                foreignData = new ForeignData();
+                foreignData.setUid(cursor.getLong(cursor.getColumnIndex(dbHelper.COLUMN_FID)));
+                //foreignData.setChecked(isChecked);
+                foreignData.setPunktX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_PUNKTX)));
+                foreignData.setPunktY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_PUNKTY)));
+                foreignData.setForeignIp(cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_IP)));
+                foreignData.setFotoId(cursor.getInt(cursor.getColumnIndex(dbHelper.COLUMN_FOTOID)));
+
+
+                // Add book to books
+                ForeignDataList.add(foreignData);
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
 
         return ForeignDataList;
     }

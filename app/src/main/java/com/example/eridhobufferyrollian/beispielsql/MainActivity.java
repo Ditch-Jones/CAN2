@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Node dateiMemo;
     private ForeignData foreignData;
-    private Neighbour neighbour;
+    private Neighbour neighborMemo;
     private OwnDataMemo ownDataMemo;
     private PeerMemo peerMemo;
 
@@ -145,16 +145,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ownDataDbSource = new OwnDataDbSource();
         peerDbSource = new PeerDbSource();
 
-        dateiMemoDbSource.deleteNode();
-        foreignDataDbSource.deleteForeignData();
-        neighborDbSource.deleteNeighbormemo();
-        ownDataDbSource.deleteOwnData();
-        peerDbSource.deletePeerMemo();
+//        dateiMemoDbSource.deleteDateiMemo();
+//        neighborDbSource.deleteNeighbormemo();
+//        ownDataDbSource.deleteOwnData();
+//        peerDbSource.deletePeerMemo();
+//        foreignDataDbSource.deleteForeignData();
+
+
 
         //insert DateiMemo
         // String username, String password, int uid, boolean checked,
         // double cornerTopRightX und Y, double cornerTopLeftx und Y, double cornerBottomRightX und Y,
         // double cornerBottomLeftX und Y, double punktX, double punktY, double IP, int countPeers
+        Node dateiMemo = new Node();
         dateiMemo.setUid(1);
         dateiMemo.setChecked(true);
         dateiMemo.setCornerTopRightX(0.5);
@@ -178,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //private double punktX;
         //private double punktY;
         //private String foreignIp;
+        ForeignData foreignData = new ForeignData();
         foreignData.setUid(1);
         foreignData.setChecked(true);
         foreignData.setFotoId(2);
@@ -201,26 +205,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //private double RTT;
         //private boolean checked;
         //private long uid;
-        neighbour.setUid(1);
-        neighbour.setChecked(true);
-        neighbour.setCornerTopRightX(0.5);
-        neighbour.setCornerTopRightY(0.6);
-        neighbour.setCornerTopLeftX(0.2);
-        neighbour.setCornerTopLeftY(0.2);
-        neighbour.setCornerBottomLeftX(0.4);
-        neighbour.setCornerBottomLeftY(0.6);
-        neighbour.setCornerBottomRightX(0.5);
-        neighbour.setCornerBottomRightY(1);
-        neighbour.setPunktX(0.2);
-        neighbour.setPunktY(0.4);
-        neighbour.setUIP("277.0.0.0/8");
-        neighbour.setRTT(25.89);
-        neighborDbSource.createNeighborMemo(neighbour);
+        Neighbour neighborMemo = new Neighbour();
+        neighborMemo.setUid(1);
+        neighborMemo.setChecked(true);
+        neighborMemo.setCornerTopRightX(0.5);
+        neighborMemo.setCornerTopRightY(0.6);
+        neighborMemo.setCornerTopLeftX(0.2);
+        neighborMemo.setCornerTopLeftY(0.2);
+        neighborMemo.setCornerBottomLeftX(0.4);
+        neighborMemo.setCornerBottomLeftY(0.6);
+        neighborMemo.setCornerBottomRightX(0.5);
+        neighborMemo.setCornerBottomRightY(1);
+        neighborMemo.setPunktX(0.2);
+        neighborMemo.setPunktY(0.4);
+        neighborMemo.setUIP("277.0.0.0/8");
+        neighborMemo.setRTT(25.89);
+        neighborDbSource.createNeighborMemo(neighborMemo);
 
         //insert Own Data
         //    public long uid;
         //    public boolean checked;
         //    public int fileId
+        OwnDataMemo ownDataMemo = new OwnDataMemo();
         ownDataMemo.setUid(1);
         ownDataMemo.setChecked(true);
         ownDataMemo.setFileId(3);
@@ -231,6 +237,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //    public int peerId;
         //    public double peerIp;
         //    private boolean checked;
+        PeerMemo peerMemo = new PeerMemo();
         peerMemo.setUid(1);
         peerMemo.setPeerId(1);
         peerMemo.setChecked(true);
@@ -241,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //Zeig Table Datei Memo
     private void ListDatei () {
-        List<Node> dateiMemoList= dateiMemoDbSource.getAllNodes();
+        List<Node> dateiMemoList= dateiMemoDbSource.getAllDateiMemos();
         Log.d(LOG_TAG,"=============================================================");
 
         for (int j = 0; j < dateiMemoList.size(); j++){
@@ -254,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "\n Corner Bottom Right X: "+ dateiMemoList.get(j).getCornerBottomRightX() +
                     "\n Corner Bottom Right Y: "+ dateiMemoList.get(j).getCornerBottomRightY() +
                     "\n Corner Bottom Left X: "+ dateiMemoList.get(j).getCornerBottomLeftX() +
-                    "\n Corner Bottom Left Y: "+ dateiMemoList.get(j).getCornerTopLeftY() +
+                    "\n Corner Bottom Left Y: "+ dateiMemoList.get(j).getCornerBottomLeftY() +
                     "\n Punkt X: "+ dateiMemoList.get(j).getPunktX() +
                     "\n Punkt Y: "+ dateiMemoList.get(j).getPunktY() +
                     "\n IP: "+ dateiMemoList.get(j).getIP() +
@@ -621,7 +628,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void showAllListEntries () {
-        List<Node> DateiMemoList = dateiMemoDbSource.getAllNodes();
+        List<Node> DateiMemoList = dateiMemoDbSource.getAllDateiMemos();
 
         ArrayAdapter<Node> adapter = (ArrayAdapter<Node>) mDateiMemosListView.getAdapter();
 

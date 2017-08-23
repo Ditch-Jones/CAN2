@@ -14,12 +14,13 @@ import android.database.Cursor;
 
 import com.example.eridhobufferyrollian.beispielsql.DatabaseManager;
 import com.example.eridhobufferyrollian.beispielsql.DateiMemoDbHelper;
-import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
+import com.example.eridhobufferyrollian.beispielsql.model.Node;
 import com.example.eridhobufferyrollian.beispielsql.model.ForeignData;
-import com.example.eridhobufferyrollian.beispielsql.model.NeighborMemo;
+import com.example.eridhobufferyrollian.beispielsql.model.Neighbour;
 import com.example.eridhobufferyrollian.beispielsql.model.OwnDataMemo;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class OwnDataDbSource {
@@ -34,9 +35,13 @@ public class OwnDataDbSource {
     private String[] columns_OwnData = {
             DateiMemoDbHelper.COLUMN_FILEID,
             DateiMemoDbHelper.COLUMN_UID,
-            DateiMemoDbHelper.COLUMN_CHECKED
+            //DateiMemoDbHelper.COLUMN_CHECKED
     };
 
+
+    public OwnDataDbSource(){
+        ownDataMemo = new OwnDataMemo();
+    }
 
      /*
     *
@@ -136,8 +141,8 @@ public class OwnDataDbSource {
     public int createOwnData(OwnDataMemo ownDataMemo) {
         database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_UID, dateiMemoDbSource.getUid());
-        values.put(DateiMemoDbHelper.COLUMN_CHECKED, ownDataMemo.isChecked());
+        values.put(DateiMemoDbHelper.COLUMN_OID, ownDataMemo.getUid());
+        //values.put(DateiMemoDbHelper.COLUMN_CHECKED, ownDataMemo.isChecked());
         values.put(DateiMemoDbHelper.COLUMN_FOTOID, ownDataMemo.getFileId());
 
         //
@@ -186,26 +191,26 @@ public class OwnDataDbSource {
 *               Hilfklasse für Update Methode und Insert Methode
 *
 * */
-    private OwnDataMemo cursorToOwnData(Cursor cursor) {
-        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
-        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
-        int idFileId = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_FILEID);
-
-
-
-        long uid = cursor.getLong(idIndex);
-
-        int intValueChecked = cursor.getInt(idChecked);
-        boolean isChecked = (intValueChecked != 0);
-
-        int fileId = cursor.getInt(idFileId);
-
-
-
-        OwnDataMemo ownDataMemo = new OwnDataMemo(uid, isChecked, fileId);
-
-        return ownDataMemo;
-    }
+//    private OwnDataMemo cursorToOwnData(Cursor cursor) {
+//        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
+//        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+//        int idFileId = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_FILEID);
+//
+//
+//
+//        long uid = cursor.getLong(idIndex);
+//
+//        int intValueChecked = cursor.getInt(idChecked);
+//        boolean isChecked = (intValueChecked != 0);
+//
+//        int fileId = cursor.getInt(idFileId);
+//
+//
+//
+//        OwnDataMemo ownDataMemo = new OwnDataMemo(uid, isChecked, fileId);
+//
+//        return ownDataMemo;
+//    }
 
     /*
    *
@@ -243,23 +248,39 @@ public class OwnDataDbSource {
     }
 
     public List<OwnDataMemo> getAllOwnData() {
-        List<OwnDataMemo> OwnDataMemoList = new ArrayList<>();
+        List<OwnDataMemo> OwnDataList = new LinkedList<OwnDataMemo>();
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_OWNDATA_LIST,
-                columns_OwnData, null, null, null, null, null);
+        //1. query
+        String query = "SELECT * FROM " + dbHelper.TABLE_OWNDATA_LIST;
 
-        cursor.moveToFirst();
-        OwnDataMemo ownDataMemo;
+        //2. open Database
+        database = DatabaseManager.getInstance().openDatabase();
 
-        while(!cursor.isAfterLast()) {
-            ownDataMemo = cursorToOwnData(cursor);
-            OwnDataMemoList.add(ownDataMemo);
-            Log.d(LOG_TAG, "ID: " + ownDataMemo.getUid() + ", Inhalt: " + ownDataMemo.toString());
-            cursor.moveToNext();
+        Cursor cursor = database.rawQuery(query, null);
+
+//        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+//        int intValueChecked = cursor.getInt(idChecked);
+//        boolean isChecked = (intValueChecked != 0);
+
+
+        //3. Durchführen Zeile und füge in List hinzu
+        OwnDataMemo ownDataMemo = null;
+        if (cursor.moveToFirst()) {
+            do {
+                ownDataMemo = new OwnDataMemo();
+                ownDataMemo.setUid(cursor.getLong(cursor.getColumnIndex(dbHelper.COLUMN_OID)));
+                //ownDataMemo.setChecked(isChecked);
+                ownDataMemo.setFileId(cursor.getInt(cursor.getColumnIndex(dbHelper.COLUMN_FILEID)));
+
+
+                // Add book to books
+                OwnDataList.add(ownDataMemo);
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
 
-        return OwnDataMemoList;
+        return OwnDataList;
     }
 }

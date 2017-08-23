@@ -44,26 +44,26 @@ public class Node {
      * @param IP
      * @param countPeers
      */
-    public Node(long uid, boolean checked,
-                     double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
-                     double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY,
-                     double punktX, double punktY, String IP, int countPeers) {
-
-        this.uid                 = uid;
-        this.checked             = checked;
-        this.cornerTopRightX     = cornerTopRightX;
-        this.cornerTopRightY     = cornerTopRightY;
-        this.cornerTopLeftX      = cornerTopLeftX;
-        this.cornerTopLeftY      = cornerTopLeftY;
-        this.cornerBottomRightX  = cornerBottomRightX;
-        this.cornerBottomRightY  = cornerBottomRightY;
-        this.cornerBottomLeftX   = cornerBottomLeftX;
-        this.cornerBottomLeftY   = cornerBottomLeftY;
-        this.punktX              = punktX;
-        this.punktY              = punktY;
-        this.IP                  = IP;
-        this.countPeers          = countPeers;
-    }
+//    public Node(long uid, boolean checked,
+//                     double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
+//                     double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY,
+//                     double punktX, double punktY, String IP, int countPeers) {
+//
+//        this.uid                 = uid;
+//        this.checked             = checked;
+//        this.cornerTopRightX     = cornerTopRightX;
+//        this.cornerTopRightY     = cornerTopRightY;
+//        this.cornerTopLeftX      = cornerTopLeftX;
+//        this.cornerTopLeftY      = cornerTopLeftY;
+//        this.cornerBottomRightX  = cornerBottomRightX;
+//        this.cornerBottomRightY  = cornerBottomRightY;
+//        this.cornerBottomLeftX   = cornerBottomLeftX;
+//        this.cornerBottomLeftY   = cornerBottomLeftY;
+//        this.punktX              = punktX;
+//        this.punktY              = punktY;
+//        this.IP                  = IP;
+//        this.countPeers          = countPeers;
+//    }
 
     /**
      * Diese Methode liefert einen x-Wert der zwischen 0 und 1 liegt
