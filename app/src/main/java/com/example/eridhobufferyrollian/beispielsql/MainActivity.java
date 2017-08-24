@@ -160,14 +160,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Node dateiMemo = new Node();
         dateiMemo.setUid(1);
         dateiMemo.setChecked(true);
-        dateiMemo.setCornerTopRightX(0.5);
-        dateiMemo.setCornerTopRightY(0.6);
-        dateiMemo.setCornerTopLeftX(0.2);
-        dateiMemo.setCornerTopLeftY(0.2);
-        dateiMemo.setCornerBottomLeftX(0.4);
-        dateiMemo.setCornerBottomLeftY(0.6);
-        dateiMemo.setCornerBottomRightX(0.5);
-        dateiMemo.setCornerBottomRightY(1);
+        dateiMemo.setCornerTopRight(0.5, 0.6);
+        dateiMemo.setCornerTopLeft(0.2, 0.2);
+        dateiMemo.setCornerBottomLeft(0.4, 0.6);
+        dateiMemo.setCornerBottomRight(0.5, 1);
         dateiMemo.setPunktX(0.2);
         dateiMemo.setPunktY(0.4);
         dateiMemo.setIP("277.0.0.0/8");

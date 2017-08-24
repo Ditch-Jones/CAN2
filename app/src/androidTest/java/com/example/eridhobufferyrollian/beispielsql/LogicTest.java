@@ -5,12 +5,11 @@ import org.junit.Test;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import com.example.eridhobufferyrollian.beispielsql.model.*;
 
 import org.junit.Before;
-import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,8 +17,6 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
-import static org.junit.Assert.*;
 
 public class LogicTest {
     @Test
@@ -69,7 +66,6 @@ public class LogicTest {
     {
         Node node = new Node();
         try {
-
             node.setCornerBottomLeft(0.6, 0.4);
             node.setCornerBottomRight(0.9, 0.4);
             node.setCornerTopLeft(0.6, 0.9);

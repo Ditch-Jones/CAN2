@@ -71,11 +71,35 @@ public class Neighbour {
 //        this.cornerBottomLeft = cornerBottomLeft;
 //    }
 
+    public void setCornerBottomLeft(double x, double y)
+    {
+        setCornerBottomLeftX(x);
+        setCornerBottomLeftY(y);
+    }
+
+    public void setCornerBottomRight(double x, double y)
+    {
+        setCornerBottomRightX(x);
+        setCornerBottomRightY(y);
+    }
+
+    public void setCornerTopLeft(double x, double y)
+    {
+        setCornerTopLeftX(x);
+        setCornerTopLeftY(y);
+    }
+
+    public void setCornerTopRight(double x, double y)
+    {
+        setCornerTopRightX(x);
+        setCornerTopRightY(y);
+    }
+
     public double getCornerTopRightX() {
         return cornerTopRightX;
     }
 
-    public void setCornerTopRightX(double cornerTopRightX) {
+    private void setCornerTopRightX(double cornerTopRightX) {
         this.cornerTopRightX = cornerTopRightX;
     }
 
@@ -83,7 +107,7 @@ public class Neighbour {
         return cornerTopRightY;
     }
 
-    public void setCornerTopRightY(double cornerTopRightY) {
+    private void setCornerTopRightY(double cornerTopRightY) {
         this.cornerTopRightY = cornerTopRightY;
     }
 
@@ -91,7 +115,7 @@ public class Neighbour {
         return cornerTopLeftX;
     }
 
-    public void setCornerTopLeftX(double cornerTopLeftX) {
+    private void setCornerTopLeftX(double cornerTopLeftX) {
         this.cornerTopLeftX = cornerTopLeftX;
     }
 
@@ -99,7 +123,7 @@ public class Neighbour {
         return cornerTopLeftY;
     }
 
-    public void setCornerTopLeftY(double cornerTopLeftY) {
+    private void setCornerTopLeftY(double cornerTopLeftY) {
         this.cornerTopLeftY = cornerTopLeftY;
     }
 
@@ -107,7 +131,7 @@ public class Neighbour {
         return cornerBottomRightX;
     }
 
-    public void setCornerBottomRightX(double cornerBottomRightX) {
+    private void setCornerBottomRightX(double cornerBottomRightX) {
         this.cornerBottomRightX = cornerBottomRightX;
     }
 
@@ -115,7 +139,7 @@ public class Neighbour {
         return cornerBottomRightY;
     }
 
-    public void setCornerBottomRightY(double cornerBottomRightY) {
+    private void setCornerBottomRightY(double cornerBottomRightY) {
         this.cornerBottomRightY = cornerBottomRightY;
     }
 
@@ -123,7 +147,7 @@ public class Neighbour {
         return cornerBottomLeftX;
     }
 
-    public void setCornerBottomLeftX(double cornerBottomLeftX) {
+    private void setCornerBottomLeftX(double cornerBottomLeftX) {
         this.cornerBottomLeftX = cornerBottomLeftX;
     }
 
@@ -131,7 +155,7 @@ public class Neighbour {
         return cornerBottomLeftY;
     }
 
-    public void setCornerBottomLeftY(double cornerBottomLeftY) {
+    private void setCornerBottomLeftY(double cornerBottomLeftY) {
         this.cornerBottomLeftY = cornerBottomLeftY;
     }
 
