@@ -25,7 +25,12 @@ public class Node {
     private int    countPeers;
     private boolean checked;
     Neighbour neighbour;
+    private Zone zone;
 
+    public Node ()
+    {
+        zone = new Zone();
+    }
 
     /**
      *
