@@ -1,7 +1,7 @@
 package com.example.eridhobufferyrollian.beispielsql.model;
 
-import com.example.eridhobufferyrollian.beispielsql.Exception.XMustBeLargerThanZeroException;
-import com.example.eridhobufferyrollian.beispielsql.Exception.YMustBeLargerThanZeroException;
+import com.example.eridhobufferyrollian.beispielsql.exception.XMustBeLargerThanZeroException;
+import com.example.eridhobufferyrollian.beispielsql.exception.YMustBeLargerThanZeroException;
 
 /**
  * Created by Joshi on 11.08.2017.

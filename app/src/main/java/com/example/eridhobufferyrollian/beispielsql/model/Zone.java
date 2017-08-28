@@ -10,13 +10,23 @@ public class Zone {
     /** Top right corner */
     private double x2, y2;
 
-    Corner cornerTopLeft;
+    private Corner topLeft;
+    private Corner topRight;
+    private Corner bottomLeft;
+    private Corner bottomRight;
 
 
 
     public Zone()
     {
 
+    }
+
+    public Zone(Corner topLeft, Corner topRight, Corner bottomLeft, Corner bottomRight){
+        this.topLeft = topLeft;
+        this.topRight= topRight;
+        this.bottomLeft = bottomLeft;
+        this.bottomRight = bottomRight;
     }
 
     public Zone(double x1, double x2, double y1, double y2) {
@@ -39,6 +49,23 @@ public class Zone {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Methode zum Testen ob ein Knoten/Bild in der eigenen Zone liegt
+     * @author Alexander Lukacs
+     * @param x
+     * @param y
+     * @return True falls Knoten/Bild in der Zone liegt, false falls Knoten/bild nicht in der Zone liegt
+     */
+    public boolean checkIfInMyZone(double x, double y) {
+        if(x > topLeft.getX() && x <= topRight.getX())
+        {
+            if (y > bottomLeft.getY() && y <= topLeft.getY() ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

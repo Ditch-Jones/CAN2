@@ -25,11 +25,11 @@ public class Node {
     private int    countPeers;
     private boolean checked;
     Neighbour neighbour;
-    private Zone zone;
+    private Zone ownZone;
 
     public Node ()
     {
-        zone = new Zone();
+
     }
 
     /**
@@ -49,26 +49,28 @@ public class Node {
      * @param IP
      * @param countPeers
      */
-//    public Node(long uid, boolean checked,
-//                     double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
-//                     double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY,
-//                     double punktX, double punktY, String IP, int countPeers) {
-//
-//        this.uid                 = uid;
-//        this.checked             = checked;
-//        this.cornerTopRightX     = cornerTopRightX;
-//        this.cornerTopRightY     = cornerTopRightY;
-//        this.cornerTopLeftX      = cornerTopLeftX;
-//        this.cornerTopLeftY      = cornerTopLeftY;
-//        this.cornerBottomRightX  = cornerBottomRightX;
-//        this.cornerBottomRightY  = cornerBottomRightY;
-//        this.cornerBottomLeftX   = cornerBottomLeftX;
-//        this.cornerBottomLeftY   = cornerBottomLeftY;
-//        this.punktX              = punktX;
-//        this.punktY              = punktY;
-//        this.IP                  = IP;
-//        this.countPeers          = countPeers;
-//    }
+    public Node(long uid, boolean checked,
+                     double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
+                     double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY,
+                     double punktX, double punktY, String IP, int countPeers, Zone ownZone) {
+
+        this.uid                 = uid;
+        this.checked             = checked;
+        this.cornerTopRightX     = cornerTopRightX;
+        this.cornerTopRightY     = cornerTopRightY;
+        this.cornerTopLeftX      = cornerTopLeftX;
+        this.cornerTopLeftY      = cornerTopLeftY;
+        this.cornerBottomRightX  = cornerBottomRightX;
+        this.cornerBottomRightY  = cornerBottomRightY;
+        this.cornerBottomLeftX   = cornerBottomLeftX;
+        this.cornerBottomLeftY   = cornerBottomLeftY;
+        this.punktX              = punktX;
+        this.punktY              = punktY;
+        this.IP                  = IP;
+        this.countPeers          = countPeers;
+        this.ownZone             = ownZone;
+   }
+
 
     /**
      * Diese Methode liefert einen x-Wert der zwischen 0 und 1 liegt
@@ -121,21 +123,7 @@ public class Node {
     }
 
 
-    /**
-     * Methode zum Testen ob ein Knoten/Bild in der eigenen Zone liegt
-     * @param x
-     * @param y
-     * @return True falls Knoten/Bild in der Zone liegt, false falls Knoten/bild nicht in der Zone liegt
-     */
-    public boolean checkIfInMyZone(double x, double y) {
-        if(x > cornerTopLeftX && x <= cornerTopRightX)
-        {
-            if (y > cornerBottomLeftY && y <= cornerTopLeftY ) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     /**
      * Methode die den Routing-Vorgang weiterleitet falls das Ziel noch nicht erreicht wurde
@@ -145,8 +133,8 @@ public class Node {
      * @param id kann jeweils FotoID oder UID sein, wird benötigt sodass man seinen Peers die nötigen Informationen zu dem neuen Knoten geben kann
      * @param isNode Dient zur unterscheidung von Knoten und Bildern
      */
-    private void receiveRoutingRequest(String ip, double x, double y, int id, boolean isNode) {
-        if(checkIfInMyZone(x,y)){
+    private void receiveRoutingRequest(String ip, double x, double y, int id, boolean isNode, Zone zone) {
+        if(zone.checkIfInMyZone(x,y)){
             if(isNode){
                 // wie bekomme ich das jeweilige socketobject zum versenden
                 //// TODO: 14.08.2017  Reply to Request-Method(muss setPeers(mit sich selbst) und setNeighbours mitsenden)
